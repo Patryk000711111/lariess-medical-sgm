@@ -1,0 +1,1332 @@
+{
+  "points": [
+    {
+      "nr_pom": "A015",
+      "nazwa_pom": "SALE CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p.  BUDYNEK A",
+      "gases": {
+        "O2": 3,
+        "VAC": 3
+      },
+      "producent": "INSTAL ZTM"
+    },
+    {
+      "nr_pom": "A038",
+      "nazwa_pom": "SALE CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p.  BUDYNEK A",
+      "gases": {
+        "O2": 3,
+        "VAC": 3
+      },
+      "producent": "INSTAL ZTM"
+    },
+    {
+      "nr_pom": "A037",
+      "nazwa_pom": "SALE CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p.  BUDYNEK A",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL ZTM"
+    },
+    {
+      "nr_pom": "A036",
+      "nazwa_pom": "SALE CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p.  BUDYNEK A",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL ZTM"
+    },
+    {
+      "nr_pom": "A035",
+      "nazwa_pom": "SALE CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p.  BUDYNEK A",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL ZTM"
+    },
+    {
+      "nr_pom": "A032",
+      "nazwa_pom": "SALE DIALIZYJNE",
+      "miejsce": null,
+      "section": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A",
+      "gases": {
+        "O2": 3,
+        "VAC": 3,
+        "AIR": "3"
+      },
+      "producent": "INSTAL ZTM"
+    },
+    {
+      "nr_pom": "A031",
+      "nazwa_pom": "SALE DIALIZYJNE",
+      "miejsce": null,
+      "section": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A",
+      "gases": {
+        "O2": 4,
+        "N2O": "88",
+        "VAC": 4,
+        "AIR": "4"
+      },
+      "producent": "INSTAL ZTM"
+    },
+    {
+      "nr_pom": "A029",
+      "nazwa_pom": "SALE DIALIZYJNE",
+      "miejsce": null,
+      "section": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1,
+        "AIR": "1"
+      },
+      "producent": "INSTAL ZTM"
+    },
+    {
+      "nr_pom": "D328",
+      "nazwa_pom": "SALA CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 10,
+        "VAC": 10,
+        "AIR": "5"
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D317",
+      "nazwa_pom": "SALA CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 3,
+        "VAC": 3
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D316",
+      "nazwa_pom": "SALA CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 6,
+        "VAC": 6
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D314",
+      "nazwa_pom": "SALA CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 6,
+        "VAC": 6
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D313",
+      "nazwa_pom": "SALA CHORYCH",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 6,
+        "VAC": 6
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D334",
+      "nazwa_pom": "PORADNIA",
+      "miejsce": "ŚCIANA",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D333",
+      "nazwa_pom": "PRACOWNIA",
+      "miejsce": "ŚCIANA",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D315",
+      "nazwa_pom": "PRACOWNIA POLIOMOGRAFICZNA",
+      "miejsce": "ŚCIANA",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "(+POM) D318",
+      "nazwa_pom": null,
+      "miejsce": "SCIANA",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 3,
+        "VAC": 3
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D329",
+      "nazwa_pom": "SALA OPATRUNKOWA",
+      "miejsce": "ŚCIANA",
+      "section": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p.   BUDYNEK D",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D009",
+      "nazwa_pom": "GASTROSKOPIA",
+      "miejsce": "ŚCIANA",
+      "section": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D",
+      "gases": {
+        "O2": 2,
+        "VAC": 3,
+        "AIR": "4"
+      },
+      "producent": "AWAMED"
+    },
+    {
+      "nr_pom": "D007",
+      "nazwa_pom": "KOLONOSKOPIA",
+      "miejsce": "ŚCIANA",
+      "section": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D",
+      "gases": {
+        "O2": 1,
+        "VAC": 2,
+        "AIR": "1"
+      },
+      "producent": "AWAMED"
+    },
+    {
+      "nr_pom": "D011",
+      "nazwa_pom": "MAGAZYNEK",
+      "miejsce": "ŚCIANA",
+      "section": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D",
+      "gases": {
+        "O2": 1,
+        "VAC": 1,
+        "AIR": "1"
+      },
+      "producent": "AWAMED"
+    },
+    {
+      "nr_pom": "B008",
+      "nazwa_pom": "RTG",
+      "miejsce": null,
+      "section": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D",
+      "gases": {
+        "O2": 1,
+        "VAC": 1,
+        "AIR": "4"
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "B002",
+      "nazwa_pom": "RTG",
+      "miejsce": null,
+      "section": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D",
+      "gases": {
+        "O2": 1,
+        "VAC": 1,
+        "AIR": "1"
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D015",
+      "nazwa_pom": "TK",
+      "miejsce": null,
+      "section": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D",
+      "gases": {
+        "O2": 3,
+        "VAC": 3,
+        "AIR": "1"
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "D130",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL ŚCIENNY",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "D131/D132",
+      "nazwa_pom": "A-8/2172/2012",
+      "miejsce": "KOLUMNA OIOM",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "D131/D132",
+      "nazwa_pom": "A-8/2174/2012",
+      "miejsce": "KOLUMNA OIOM",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "D131/D132",
+      "nazwa_pom": "A-8/2170/2012",
+      "miejsce": "KOLUMNA OIOM",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "D131/D132",
+      "nazwa_pom": "A-8/2171/2012",
+      "miejsce": "KOLUMNA OIOM",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "D131/D132",
+      "nazwa_pom": "A-8/2169/2012",
+      "miejsce": "KOLUMNA OIOM",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "D131/D132",
+      "nazwa_pom": "A-8/2168/2012",
+      "miejsce": "KOLUMNA OIOM",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "D131/D132",
+      "nazwa_pom": "A-8/2175/2012",
+      "miejsce": "KOLUMNA OIOM",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "D131/D132",
+      "nazwa_pom": "A-8/2173/2012",
+      "miejsce": "KOLUMNA OIOM",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "IZOLATKA",
+      "nazwa_pom": "A-8/2176/2012",
+      "miejsce": "IZOLATKA",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "VAC": 2,
+        "AIR": "2"
+      },
+      "producent": "PRESBLOK (PION ŚRUBA)"
+    },
+    {
+      "nr_pom": "KLINIKA CHIRURGII ONKOLOGICZNEJ 0p.",
+      "nazwa_pom": null,
+      "miejsce": null,
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {},
+      "producent": null
+    },
+    {
+      "nr_pom": "E016",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 1,
+        "AIR": "1"
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "E017",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 1,
+        "AIR": "1"
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "E018",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "AIR": "2"
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "E019",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "AIR": "2"
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "E020",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "AIR": "2"
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "E021",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "AIR": "2"
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "E022",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 2,
+        "AIR": "2"
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "E008",
+      "nazwa_pom": "SALA",
+      "miejsce": "ŚCIANA",
+      "section": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII  1p. BUDYNEK D",
+      "gases": {
+        "O2": 1,
+        "AIR": "1"
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "A311",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A308",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A315",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A317",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A318",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A319",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A320",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A321",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A326",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A327",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 4
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A305",
+      "nazwa_pom": "POBYT 1-DNIOWY",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 4,
+        "VAC": 4
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A304",
+      "nazwa_pom": "POBYT 1-DNIOWY",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 4,
+        "VAC": 1
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "A328",
+      "nazwa_pom": "PRACOWNIA DIAGNOSTYCZNA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 1,
+        "VAC": 2
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "SALA A",
+      "nazwa_pom": "SALA A",
+      "miejsce": "ŚCIANA",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 2,
+        "N2O": "1",
+        "VAC": 2,
+        "AGSS": "1",
+        "AIR": "2"
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "SALA B",
+      "nazwa_pom": "SALA B",
+      "miejsce": "ŚCIANA",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 2,
+        "N2O": "1",
+        "VAC": 2,
+        "AGSS": "1 +1",
+        "AIR": "2"
+      },
+      "producent": "GREGERSEN"
+    },
+    {
+      "nr_pom": "POTOCZNIE KOMPUTEROWY",
+      "nazwa_pom": null,
+      "miejsce": null,
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 2,
+        "N2O": "1",
+        "VAC": 1,
+        "AGSS": "1",
+        "AIR": "1"
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "SALA PRZEDOPERACYJNA",
+      "nazwa_pom": "SALA PRZEDOPERACYJNA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY  3p.   BUDYNEK A",
+      "gases": {
+        "O2": 4,
+        "VAC": 4,
+        "AIR": "2"
+      },
+      "producent": "INSMED RZESZÓW"
+    },
+    {
+      "nr_pom": "C110",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "C111",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "C114",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "C115",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 3,
+        "VAC": 3
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "C116",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "C117",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "C103",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 1,
+        "VAC": 1
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "C105",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 3,
+        "VAC": 3
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "C106",
+      "nazwa_pom": "SALA",
+      "miejsce": "PANEL",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "KORYTARZ",
+      "nazwa_pom": "KORYTARZ",
+      "miejsce": "KORYTARZ",
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "O2": 2,
+        "VAC": 2
+      },
+      "producent": "INSTAL TM"
+    },
+    {
+      "nr_pom": "PODSUMOWANIE",
+      "nazwa_pom": null,
+      "miejsce": null,
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {
+        "N2O": "2",
+        "AGSS": "3"
+      },
+      "producent": null
+    },
+    {
+      "nr_pom": "ŁĄCZNIE",
+      "nazwa_pom": null,
+      "miejsce": null,
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {},
+      "producent": null
+    },
+    {
+      "nr_pom": "Zalecamy z racji nieszczelności wymianę wszystkich uszczelnień - elastycznych połączeń w tym uszczelniania miedzy częścią A i B punktów poborów gazów medycznych  – zgodnie z normą m.in. PN-EN ISO 7396-1: 2010 i instrukcją wyrobu",
+      "nazwa_pom": null,
+      "miejsce": null,
+      "section": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C",
+      "gases": {},
+      "producent": null
+    }
+  ],
+  "boxes": [
+    {
+      "numer": "L.C117/4",
+      "budynek": "C",
+      "poziom": 0,
+      "oddzial": "WEWNĘRZNY A",
+      "gazy": "ODWADNIANIE",
+      "wynik": "NEGATYWNY",
+      "uwagi": "1x NIESZCZELNOŚĆ O2; 1x NIESZCZELNOŚĆ VAC",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.C117/3",
+      "budynek": "C",
+      "poziom": 0,
+      "oddzial": "WEWNĘRZNY A",
+      "gazy": "O2; VAC",
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.C117/2",
+      "budynek": "C",
+      "poziom": 0,
+      "oddzial": "WEWNĘRZNY A",
+      "gazy": "O2; VAC",
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.C117/1",
+      "budynek": "C",
+      "poziom": 0,
+      "oddzial": "WEWNĘRZNY A",
+      "gazy": "O2; VAC",
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.A136/1",
+      "budynek": "A",
+      "poziom": 1,
+      "oddzial": "WEWNĘRZNY B",
+      "gazy": "O2",
+      "wynik": "NEGATYWNY",
+      "uwagi": "1x NIESZCZELNOŚĆ O2;  MOSTEK NA CZUJNIKU",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.A136/2",
+      "budynek": "A",
+      "poziom": 1,
+      "oddzial": "WEWNĘRZNY B",
+      "gazy": "O2",
+      "wynik": "NEGATYWNY",
+      "uwagi": "1x NIESZCZELNOŚĆ O2",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.A136/3",
+      "budynek": "A",
+      "poziom": 1,
+      "oddzial": "WEWNĘRZNY B",
+      "gazy": "O2",
+      "wynik": "NEGATYWNY",
+      "uwagi": "1x NIESZCZELNOŚĆ O2;  MOSTEK NA CZUJNIKU",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "P.D106-1",
+      "budynek": null,
+      "poziom": -1,
+      "oddzial": "`OBOK BUFETU, KORYTARZ - 1",
+      "gazy": "O2; N2O",
+      "wynik": "NEGATYWNY",
+      "uwagi": "1x NIESZCZELNOŚĆ N2O;  1x NIESZCZELNOŚĆ O2  - PRZY ZAWORACH",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "P.D106-2",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "`OBOK BUFETU, KORYTARZ - 1",
+      "gazy": "O2; N2O",
+      "wynik": "NEGATYWNY",
+      "uwagi": "1x NIESZCZELNOŚĆ N2O;  1x NIESZCZELNOŚĆ O2 - PRZY ZAWORACH I ZAWORACH",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.D106",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "`OBOK BUFETU, KORYTARZ - 1",
+      "gazy": "AIR",
+      "wynik": "NEGATYWNY",
+      "uwagi": "1x NIESZCZELNOŚĆ ZAWÓR AIR",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "B.OP.OKU-1",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "BLOK OPERACYJNY OKULISTYKA",
+      "gazy": "O2; AIR; VAC",
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "B.OP.OKU-2",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "BLOK OPERACYJNY OKULISTYKA",
+      "gazy": "CZUJNIKI",
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "B.OP.OKU-3",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "BLOK OPERACYJNY OKULISTYKA",
+      "gazy": "N20; AIR; O2;",
+      "wynik": "NEGATYWNY",
+      "uwagi": "2x NIESZCZELNOŚĆ N2O;  1x NIESZCZELNOŚĆ ZŁĄCZE MANOMETRU",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "B.OP.OKU-4",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "BLOK OPERACYJNY OKULISTYKA",
+      "gazy": "VAC,N2O,AIR,O2",
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "B.OP.OKU-5",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "BLOK OPERACYJNY OKULISTYKA",
+      "gazy": "CZUJNIKI",
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "P.A304-1",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OKULISTYKA",
+      "gazy": null,
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "P.A304-2",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OKULISTYKA",
+      "gazy": null,
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "P.A304-3",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OKULISTYKA",
+      "gazy": null,
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.A305-1",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OKULISTYKA",
+      "gazy": null,
+      "wynik": "NEGATYWNY",
+      "uwagi": "1x USZKODZONE VAC",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.A305-2",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OKULISTYKA",
+      "gazy": null,
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.A305-3",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OKULISTYKA",
+      "gazy": null,
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.A305-4",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OKULISTYKA",
+      "gazy": null,
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "P.D120",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OIOM",
+      "gazy": "O2, AIR",
+      "wynik": "NEGATYWNY",
+      "uwagi": "NS DO MANOMETRÓW O2 i AIR + ZAMKNIĘTE ZAWORY DO MANOMETRÓW",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "P.D119",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OIOM",
+      "gazy": "O2, AIR",
+      "wynik": "NEGATYWNY",
+      "uwagi": "NS DO MANOMETRÓW O2 i AIR + ZAMKNIĘTE ZAWORY DO MANOMETRÓW",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "L.D327",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OTOLARYNGOLOGIA",
+      "gazy": "O2, VAC, AIR",
+      "wynik": "NEGATYWNY",
+      "uwagi": "NS PRZY MANOMETRZE O2 i AIR; MOSTEK NA O2",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": "L.B301",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "OTOLARYNGOLOGIA",
+      "gazy": "O2, VAC",
+      "wynik": "NEGATYWNY",
+      "uwagi": "MOSTEK NA CZUJNIKU",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "L.A032",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "NEFROLOGIA",
+      "gazy": "O2, AIR, VAC",
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "P.B008",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ",
+      "gazy": null,
+      "wynik": "POZYTYWNY",
+      "uwagi": "BRAK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "L.D007",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "PRACOWNIA ENDOSKOPII",
+      "gazy": null,
+      "wynik": "NEGATYWNY",
+      "uwagi": "DO WYMIANY USZKODZONY ZAMEK",
+      "wynik_po_naprawie": "POZYTYWNY"
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "ŁĄCZNIE SKRZYNEK: 29",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "ŁĄCZNIE DO NAPRAWY W SKRZYNKACH ODCINAJĄCYCH",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "PODSUMOWANIE",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": "14 = NEGATYWNY",
+      "uwagi": "BŁĘDY KRYTYCZNE: 4-6xMOSTEK NA CZUJNIKU",
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": "15 = POZYTYWNY",
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": "LEGENDA:",
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": "NS - NIESZCZELNOŚĆ",
+      "wynik": null,
+      "uwagi": "DN - DO NAPRAWY",
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": null,
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    },
+    {
+      "numer": null,
+      "budynek": null,
+      "poziom": null,
+      "oddzial": "REALIZACJA:",
+      "gazy": null,
+      "wynik": null,
+      "uwagi": null,
+      "wynik_po_naprawie": null
+    }
+  ],
+  "stats": {
+    "punktyPomieszczenia": 73,
+    "skrzynki": 49,
+    "gazy": [
+      "AGSS",
+      "AIR",
+      "N2O",
+      "O2",
+      "VAC"
+    ]
+  }
+}

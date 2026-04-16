@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L’Ariess Medical SGM</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ekg-watermark"></div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logoMark">
+        <svg viewBox="0 0 100 40" aria-hidden="true">
+          <path d="M2 20 H18 L25 20 L31 8 L40 31 L50 10 L59 20 H98" />
+        </svg>
+      </div>
+      <div>
+        <div class="brandName">L’Ariess Medical</div>
+        <div class="brandSub">SGM • system gazów medycznych</div>
+      </div>
+    </div>
+    <div class="topActions">
+      <button class="ghost">Dziennik dozoru</button>
+      <button class="primary">Logowanie</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <nav>
+        <button class="nav active" data-view="dashboard">Dashboard</button>
+        <button class="nav" data-view="boxes">Skrzynki odcinające</button>
+        <button class="nav" data-view="points">Punkty poboru</button>
+        <button class="nav" data-view="dozor">Dziennik dozoru</button>
+        <button class="nav" data-view="docs">Dokumentacja DTR</button>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <div id="view-dashboard" class="view active">
+        <section class="hero card">
+          <div>
+            <h1>System dozoru, eksploatacji i serwisu gazów medycznych</h1>
+            <p>Wersja webowa do podglądu na komputerze. Układ oparty o dane ze skrzynek i punktów poboru dla Szpitala Czerniakowskiego.</p>
+          </div>
+          <div class="hero-actions">
+            <button class="primary">Dziennik dozoru</button>
+            <button class="ghost">Przeglądaj instalację</button>
+          </div>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat card">
+            <div class="statLabel">Pomieszczenia z punktami poboru</div>
+            <div class="statValue" id="stat-points">—</div>
+          </article>
+          <article class="stat card">
+            <div class="statLabel">Skrzynki kontrolno-odcinające</div>
+            <div class="statValue" id="stat-boxes">—</div>
+          </article>
+          <article class="stat card">
+            <div class="statLabel">Gazy w systemie</div>
+            <div class="chips" id="stat-gases"></div>
+          </article>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="card">
+            <div class="sectionHead">
+              <h2>Szybkie wyszukiwanie</h2>
+            </div>
+            <input id="globalSearch" class="search" placeholder="Wpisz numer skrzynki, salę, oddział lub gaz" />
+            <div id="searchResults" class="results"></div>
+          </article>
+          <article class="card">
+            <div class="sectionHead">
+              <h2>Podgląd modułów</h2>
+            </div>
+            <div class="miniGrid">
+              <div class="miniTile"><strong>O₂</strong><span>Tlenownia</span></div>
+              <div class="miniTile"><strong>AIR</strong><span>Sprężarkownia</span></div>
+              <div class="miniTile"><strong>VAC</strong><span>Próżnia</span></div>
+              <div class="miniTile"><strong>DTR</strong><span>Dokumentacja</span></div>
+            </div>
+          </article>
+        </section>
+      </div>
+
+      <div id="view-boxes" class="view">
+        <section class="card">
+          <div class="sectionHead">
+            <h2>Lista skrzynek</h2>
+            <input id="boxSearch" class="search small" placeholder="Filtruj skrzynki..." />
+          </div>
+          <div class="tableWrap">
+            <table>
+              <thead><tr><th>Numer</th><th>Budynek</th><th>Oddział</th><th>Gazy</th><th>Wynik</th></tr></thead>
+              <tbody id="boxesTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div id="view-points" class="view">
+        <section class="card">
+          <div class="sectionHead">
+            <h2>Punkty poboru / pomieszczenia</h2>
+            <input id="pointSearch" class="search small" placeholder="Filtruj punkty..." />
+          </div>
+          <div class="tableWrap">
+            <table>
+              <thead><tr><th>Nr pom.</th><th>Nazwa</th><th>Oddział / sekcja</th><th>Gazy</th><th>Producent</th></tr></thead>
+              <tbody id="pointsTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div id="view-dozor" class="view">
+        <section class="card">
+          <div class="sectionHead"><h2>Dziennik dozoru</h2></div>
+          <div class="gasSelect">
+            <button class="gasBtn">O₂</button>
+            <button class="gasBtn">AIR</button>
+            <button class="gasBtn">VAC</button>
+          </div>
+          <form class="formGrid">
+            <label>Instalacja<select><option>Tlenownia</option><option>Sprężarkownia</option><option>Próżnia</option></select></label>
+            <label>Wykonał dozór<select><option>Wybierz dozorcę</option><option>Jan Kowalski</option><option>Piotr Nowak</option></select></label>
+            <label>Data<input type="date" /></label>
+            <label>Godzina<input type="time" /></label>
+            <label class="full">Uwagi<textarea rows="4" placeholder="Uwagi i spostrzeżenia"></textarea></label>
+            <div class="full rowActions">
+              <button type="button" class="ghost">Zapisz wpis</button>
+              <button type="button" class="primary">Eksportuj PDF</button>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <div id="view-docs" class="view">
+        <section class="card">
+          <div class="sectionHead"><h2>Dokumentacja DTR</h2></div>
+          <div class="miniGrid">
+            <div class="miniTile"><strong>TRI/TC</strong><span>Tablica redukcyjna</span></div>
+            <div class="miniTile"><strong>BP</strong><span>Bateria butlowa</span></div>
+            <div class="miniTile"><strong>Łącznik</strong><span>Łącznik butlowy</span></div>
+            <div class="miniTile"><strong>Serwis</strong><span>Protokoły serwisowe</span></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
