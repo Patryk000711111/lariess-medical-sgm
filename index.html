@@ -1,279 +1,130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>L’Ariess Medical SGM — realne dane</title>
-<style>
-:root {
-  --bg:#f7fafc; --card:#ffffff; --line:#dbe4ee; --text:#102033; --muted:#5d7188;
-  --primary:#0ea5e9; --o2:#1d4ed8; --air:#16a34a; --vac:#ca8a04; --danger:#dc2626;
-}
-*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
-button,input,select{font:inherit} button{cursor:pointer}
-.ekg{position:fixed;inset:0;pointer-events:none;opacity:.08;overflow:hidden;z-index:0}
-.ekg svg{position:absolute;top:80px;left:0;width:150%;height:220px}
-.page{position:relative;z-index:1}
-.wrap{max-width:1320px;margin:0 auto;padding:24px}
-.logo{display:flex;align-items:center;gap:14px}
-.logoMark{width:62px;height:62px;border-radius:18px;background:#0b1220;display:grid;place-items:center;box-shadow:0 8px 24px rgba(2,6,23,.18)}
-.logoWord1{font-size:28px;font-weight:700;letter-spacing:.18em} .logoWord2{font-size:12px;color:var(--muted);letter-spacing:.42em;text-transform:uppercase}
-.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;min-height:86vh;align-items:center}
-.title{font-size:54px;line-height:1.04;margin:18px 0 0;font-weight:700}
-.sub{font-size:20px;line-height:1.7;color:var(--muted);max-width:860px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:28px;box-shadow:0 8px 30px rgba(15,23,42,.06)}
-.panelCard{padding:24px} .panelTitle{font-size:28px;font-weight:700} .panelSub{margin-top:8px;color:var(--muted);line-height:1.6}
-.btn{display:block;width:100%;padding:16px 18px;border:0;border-radius:20px;font-weight:600}
-.btnPrimary{background:var(--primary);color:#fff} .btnDark{background:#0f172a;color:#fff} .btnGhost{background:#fff;border:1px solid var(--line)}
-.stack{display:flex;flex-direction:column;gap:16px} .row{display:flex;gap:16px;flex-wrap:wrap} .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px} .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.navLayout{display:grid;grid-template-columns:300px 1fr;min-height:100vh} .sidebar{background:#fff;border-right:1px solid var(--line);padding:20px;overflow:auto}
-.navBtn{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 16px;border:0;background:transparent;border-radius:18px;color:#21364f}
-.navBtn.active{background:var(--primary);color:#fff} .navBtn:hover{background:#eef4fb}
-.topbar{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.search{width:420px;max-width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#fff}
-.content{padding:20px} .kpi{padding:20px} .kpiValue{font-size:42px;font-weight:700;margin-top:8px} .small{font-size:14px;color:var(--muted)}
-.tableWrap{overflow:auto} table{width:100%;border-collapse:collapse} th,td{text-align:left;padding:14px 16px;border-top:1px solid #eef2f7;font-size:14px;vertical-align:top} thead th{border-top:0;background:#f8fbfe;color:var(--muted);font-weight:700}
-.toolbar{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)} .formGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.input,select,textarea{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#fff} .sectionTitle{font-size:24px;font-weight:700;margin-bottom:6px}
-.tag{display:inline-block;padding:5px 9px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:12px;font-weight:700;margin-right:6px;margin-bottom:6px}
-.tree details{border:1px solid var(--line);border-radius:18px;padding:12px 14px;background:#fff}
-.tree details + details{margin-top:10px}
-.tree summary{cursor:pointer;font-weight:700}
-@media (max-width:980px){.hero{grid-template-columns:1fr} .title{font-size:40px} .navLayout{grid-template-columns:1fr} .sidebar{display:none} .grid4{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){.grid2,.grid4,.formGrid{grid-template-columns:1fr} .title{font-size:34px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'ariess Medical Online</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; background: #f8fafc; }
+    .glass { background: rgba(255,255,255,.95); backdrop-filter: blur(20px); border: 1px solid rgba(226,232,240,.9); border-radius: 24px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.06); }
+    .input { width:100%; padding:12px 14px; border-radius:14px; border:1px solid #cbd5e1; background:#fff; }
+    .btn { padding: 12px 16px; border-radius: 14px; font-weight: 800; }
+  </style>
 </head>
 <body>
-<div id="app"></div>
-<script>
-const POINTS = [{"nr": "A015", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A038", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A037", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A036", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A035", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A032", "nazwa": "SALE DIALIZYJNE", "miejsce": "", "budynek": "A", "oddzial": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}, {"gaz": "AIR", "ilosc": "3"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A031", "nazwa": "SALE DIALIZYJNE", "miejsce": "", "budynek": "A", "oddzial": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "4.0"}, {"gaz": "N₂O", "ilosc": "88"}, {"gaz": "VAC", "ilosc": "4.0"}, {"gaz": "AIR", "ilosc": "4"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A029", "nazwa": "SALE DIALIZYJNE", "miejsce": "", "budynek": "A", "oddzial": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D328", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "10.0"}, {"gaz": "VAC", "ilosc": "10.0"}, {"gaz": "AIR", "ilosc": "5"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "2x NIESZCZELNOŚĆ VAC"}, {"nr": "D317", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D316", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "6.0"}, {"gaz": "VAC", "ilosc": "6.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D314", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "6.0"}, {"gaz": "VAC", "ilosc": "6.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D313", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "6.0"}, {"gaz": "VAC", "ilosc": "6.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D334", "nazwa": "PORADNIA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D333", "nazwa": "PRACOWNIA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D315", "nazwa": "PRACOWNIA POLIOMOGRAFICZNA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "(+POM) D318", "nazwa": "", "miejsce": "SCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D329", "nazwa": "SALA OPATRUNKOWA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D009", "nazwa": "GASTROSKOPIA", "miejsce": "ŚCIANA", "budynek": "B", "oddzial": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "3.0"}, {"gaz": "AIR", "ilosc": "4"}], "producent": "AWAMED", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D007", "nazwa": "KOLONOSKOPIA", "miejsce": "ŚCIANA", "budynek": "B", "oddzial": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "AWAMED", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D011", "nazwa": "MAGAZYNEK", "miejsce": "ŚCIANA", "budynek": "B", "oddzial": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "AWAMED", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "B008", "nazwa": "RTG", "miejsce": "", "budynek": "B", "oddzial": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "4"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ O2; 1x BRAK OZNACZENIA O2"}, {"nr": "B002", "nazwa": "RTG", "miejsce": "", "budynek": "B", "oddzial": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNACZENIA O2"}, {"nr": "D015", "nazwa": "TK", "miejsce": "", "budynek": "B", "oddzial": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ O2; 1x BRAK OZNACZENIA O2"}, {"nr": "D130", "nazwa": "SALA", "miejsce": "PANEL ŚCIENNY", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "", "uwagi": ""}, {"nr": "D131/D132", "nazwa": "A-8/2172/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ AIR; 1x USZKODZONY WTYK AIR"}, {"nr": "D131/D132", "nazwa": "A-8/2174/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x USZKODZONY WTYK AIR"}, {"nr": "D131/D132", "nazwa": "A-8/2170/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x USZKODZONY WTYK AIR"}, {"nr": "D131/D132", "nazwa": "A-8/2171/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ AIR; 1x USZKODZONY WTYK AIR"}, {"nr": "D131/D132", "nazwa": "A-8/2169/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D131/D132", "nazwa": "A-8/2168/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ AIR;"}, {"nr": "D131/D132", "nazwa": "A-8/2175/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D131/D132", "nazwa": "A-8/2173/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "IZOLATKA", "nazwa": "A-8/2176/2012", "miejsce": "IZOLATKA", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ AIR;"}, {"nr": "KLINIKA CHIRURGII ONKOLOGICZNEJ 0p.", "nazwa": "", "miejsce": "", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [], "producent": "", "wynik": "", "uwagi": ""}, {"nr": "E016", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E017", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E018", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E019", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E020", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E021", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E022", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E008", "nazwa": "SALA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A311", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A308", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "A315", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "A317", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A318", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A319", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A320", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A321", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "A326", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A327", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "4.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "A305", "nazwa": "POBYT 1-DNIOWY", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "4.0"}, {"gaz": "VAC", "ilosc": "4.0"}], "producent": "INSMED RZESZÓW", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A304", "nazwa": "POBYT 1-DNIOWY", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "4.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A328", "nazwa": "PRACOWNIA DIAGNOSTYCZNA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "SALA A", "nazwa": "SALA A", "miejsce": "ŚCIANA", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "N₂O", "ilosc": "1"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AGSS", "ilosc": "1"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x NIESPRAWNE AGSS - BRAK ODCIĄGU"}, {"nr": "SALA B", "nazwa": "SALA B", "miejsce": "ŚCIANA", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "N₂O", "ilosc": "1"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AGSS", "ilosc": "1 +1"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x NIESPRAWNE AGSS - BRAK ODCIĄGU; 1X NIESZCZELNOŚĆ N2O; 1x BRAK OZNAKOWANIA O2"}, {"nr": "POTOCZNIE KOMPUTEROWY", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "N₂O", "ilosc": "1"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AGSS", "ilosc": "1"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x NIESPRAWNE AGSS - BRAK ODCIĄGU"}, {"nr": "SALA PRZEDOPERACYJNA", "nazwa": "SALA PRZEDOPERACYJNA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "4.0"}, {"gaz": "VAC", "ilosc": "4.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "4x BRAK OZNACZENIA; 2x NIESZCZELNOŚĆ O2"}, {"nr": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [], "producent": "", "wynik": "", "uwagi": ""}, {"nr": "C110", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C111", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C114", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C115", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C116", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C117", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C103", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C105", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C106", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "KORYTARZ", "nazwa": "KORYTARZ", "miejsce": "KORYTARZ", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "PODSUMOWANIE", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "N₂O", "ilosc": "2"}, {"gaz": "AGSS", "ilosc": "3"}], "producent": "", "wynik": "", "uwagi": ""}, {"nr": "ŁĄCZNIE", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [], "producent": "", "wynik": "", "uwagi": ""}, {"nr": "Zalecamy z racji nieszczelności wymianę wszystkich uszczelnień - elastycznych połączeń w tym uszczelniania miedzy częścią A i B punktów poborów gazów medycznych – zgodnie z normą m.in. PN-EN ISO 7396-1: 2010 i instrukcją wyrobu", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [], "producent": "", "wynik": "", "uwagi": ""}];
-const BOXES = [{"nr": "L.C117/4", "budynek": "C", "poziom": "0.0", "oddzial": "WEWNĘRZNY A", "gazy": "ODWADNIANIE", "wynik": "NEGATYWNY", "uwagi": "1x NIESZCZELNOŚĆ O2; 1x NIESZCZELNOŚĆ VAC", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.C117/3", "budynek": "C", "poziom": "0.0", "oddzial": "WEWNĘRZNY A", "gazy": "O2; VAC", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.C117/2", "budynek": "C", "poziom": "0.0", "oddzial": "WEWNĘRZNY A", "gazy": "O2; VAC", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.C117/1", "budynek": "C", "poziom": "0.0", "oddzial": "WEWNĘRZNY A", "gazy": "O2; VAC", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.A136/1", "budynek": "A", "poziom": "1.0", "oddzial": "WEWNĘRZNY B", "gazy": "O2", "wynik": "NEGATYWNY", "uwagi": "1x NIESZCZELNOŚĆ O2; MOSTEK NA CZUJNIKU", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.A136/2", "budynek": "A", "poziom": "1.0", "oddzial": "WEWNĘRZNY B", "gazy": "O2", "wynik": "NEGATYWNY", "uwagi": "1x NIESZCZELNOŚĆ O2", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.A136/3", "budynek": "A", "poziom": "1.0", "oddzial": "WEWNĘRZNY B", "gazy": "O2", "wynik": "NEGATYWNY", "uwagi": "1x NIESZCZELNOŚĆ O2; MOSTEK NA CZUJNIKU", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "P.D106-1", "budynek": "", "poziom": "-1.0", "oddzial": "`OBOK BUFETU, KORYTARZ - 1", "gazy": "O2; N2O", "wynik": "NEGATYWNY", "uwagi": "1x NIESZCZELNOŚĆ N2O; 1x NIESZCZELNOŚĆ O2 - PRZY ZAWORACH", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "P.D106-2", "budynek": "", "poziom": "", "oddzial": "`OBOK BUFETU, KORYTARZ - 1", "gazy": "O2; N2O", "wynik": "NEGATYWNY", "uwagi": "1x NIESZCZELNOŚĆ N2O; 1x NIESZCZELNOŚĆ O2 - PRZY ZAWORACH I ZAWORACH", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.D106", "budynek": "", "poziom": "", "oddzial": "`OBOK BUFETU, KORYTARZ - 1", "gazy": "AIR", "wynik": "NEGATYWNY", "uwagi": "1x NIESZCZELNOŚĆ ZAWÓR AIR", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "B.OP.OKU-1", "budynek": "", "poziom": "", "oddzial": "BLOK OPERACYJNY OKULISTYKA", "gazy": "O2; AIR; VAC", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "B.OP.OKU-2", "budynek": "", "poziom": "", "oddzial": "BLOK OPERACYJNY OKULISTYKA", "gazy": "CZUJNIKI", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "B.OP.OKU-3", "budynek": "", "poziom": "", "oddzial": "BLOK OPERACYJNY OKULISTYKA", "gazy": "N20; AIR; O2;", "wynik": "NEGATYWNY", "uwagi": "2x NIESZCZELNOŚĆ N2O; 1x NIESZCZELNOŚĆ ZŁĄCZE MANOMETRU", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "B.OP.OKU-4", "budynek": "", "poziom": "", "oddzial": "BLOK OPERACYJNY OKULISTYKA", "gazy": "VAC,N2O,AIR,O2", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "B.OP.OKU-5", "budynek": "", "poziom": "", "oddzial": "BLOK OPERACYJNY OKULISTYKA", "gazy": "CZUJNIKI", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "P.A304-1", "budynek": "", "poziom": "", "oddzial": "OKULISTYKA", "gazy": "", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "P.A304-2", "budynek": "", "poziom": "", "oddzial": "OKULISTYKA", "gazy": "", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "P.A304-3", "budynek": "", "poziom": "", "oddzial": "OKULISTYKA", "gazy": "", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.A305-1", "budynek": "", "poziom": "", "oddzial": "OKULISTYKA", "gazy": "", "wynik": "NEGATYWNY", "uwagi": "1x USZKODZONE VAC", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.A305-2", "budynek": "", "poziom": "", "oddzial": "OKULISTYKA", "gazy": "", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.A305-3", "budynek": "", "poziom": "", "oddzial": "OKULISTYKA", "gazy": "", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.A305-4", "budynek": "", "poziom": "", "oddzial": "OKULISTYKA", "gazy": "", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "P.D120", "budynek": "", "poziom": "", "oddzial": "OIOM", "gazy": "O2, AIR", "wynik": "NEGATYWNY", "uwagi": "NS DO MANOMETRÓW O2 i AIR + ZAMKNIĘTE ZAWORY DO MANOMETRÓW", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "P.D119", "budynek": "", "poziom": "", "oddzial": "OIOM", "gazy": "O2, AIR", "wynik": "NEGATYWNY", "uwagi": "NS DO MANOMETRÓW O2 i AIR + ZAMKNIĘTE ZAWORY DO MANOMETRÓW", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.D327", "budynek": "", "poziom": "", "oddzial": "OTOLARYNGOLOGIA", "gazy": "O2, VAC, AIR", "wynik": "NEGATYWNY", "uwagi": "NS PRZY MANOMETRZE O2 i AIR; MOSTEK NA O2", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.B301", "budynek": "", "poziom": "", "oddzial": "OTOLARYNGOLOGIA", "gazy": "O2, VAC", "wynik": "NEGATYWNY", "uwagi": "MOSTEK NA CZUJNIKU", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.A032", "budynek": "", "poziom": "", "oddzial": "NEFROLOGIA", "gazy": "O2, AIR, VAC", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "P.B008", "budynek": "", "poziom": "", "oddzial": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ", "gazy": "", "wynik": "POZYTYWNY", "uwagi": "BRAK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "L.D007", "budynek": "", "poziom": "", "oddzial": "PRACOWNIA ENDOSKOPII", "gazy": "", "wynik": "NEGATYWNY", "uwagi": "DO WYMIANY USZKODZONY ZAMEK", "wynik_po_naprawie": "POZYTYWNY"}, {"nr": "ŁĄCZNIE SKRZYNEK: 29", "budynek": "", "poziom": "", "oddzial": "", "gazy": "", "wynik": "", "uwagi": "", "wynik_po_naprawie": ""}, {"nr": "ŁĄCZNIE DO NAPRAWY W SKRZYNKACH ODCINAJĄCYCH", "budynek": "", "poziom": "", "oddzial": "", "gazy": "", "wynik": "", "uwagi": "", "wynik_po_naprawie": ""}, {"nr": "PODSUMOWANIE", "budynek": "", "poziom": "", "oddzial": "", "gazy": "", "wynik": "14 = NEGATYWNY", "uwagi": "BŁĘDY KRYTYCZNE: 4-6xMOSTEK NA CZUJNIKU", "wynik_po_naprawie": ""}, {"nr": "LEGENDA:", "budynek": "", "poziom": "", "oddzial": "", "gazy": "NS - NIESZCZELNOŚĆ", "wynik": "", "uwagi": "DN - DO NAPRAWY", "wynik_po_naprawie": ""}];
-const TREE = {"A": {"ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A": [{"nr": "A015", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A038", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A037", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A036", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A035", "nazwa": "SALE CHORYCH", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH C , 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}], "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A": [{"nr": "A032", "nazwa": "SALE DIALIZYJNE", "miejsce": "", "budynek": "A", "oddzial": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}, {"gaz": "AIR", "ilosc": "3"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A031", "nazwa": "SALE DIALIZYJNE", "miejsce": "", "budynek": "A", "oddzial": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "4.0"}, {"gaz": "N₂O", "ilosc": "88"}, {"gaz": "VAC", "ilosc": "4.0"}, {"gaz": "AIR", "ilosc": "4"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A029", "nazwa": "SALE DIALIZYJNE", "miejsce": "", "budynek": "A", "oddzial": "PODODDZIAŁ NEFROLOGICZNY 0p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSTAL ZTM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}], "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A": [{"nr": "A311", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A308", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "A315", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "A317", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A318", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A319", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A320", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A321", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "A326", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2"}, {"nr": "A327", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "4.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "A305", "nazwa": "POBYT 1-DNIOWY", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "4.0"}, {"gaz": "VAC", "ilosc": "4.0"}], "producent": "INSMED RZESZÓW", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A304", "nazwa": "POBYT 1-DNIOWY", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "4.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSMED RZESZÓW", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "A328", "nazwa": "PRACOWNIA DIAGNOSTYCZNA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNAKOWANIA O2; 1x BRAK OZNAKOWANIA VAC"}, {"nr": "SALA A", "nazwa": "SALA A", "miejsce": "ŚCIANA", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "N₂O", "ilosc": "1"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AGSS", "ilosc": "1"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x NIESPRAWNE AGSS - BRAK ODCIĄGU"}, {"nr": "SALA B", "nazwa": "SALA B", "miejsce": "ŚCIANA", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "N₂O", "ilosc": "1"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AGSS", "ilosc": "1 +1"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x NIESPRAWNE AGSS - BRAK ODCIĄGU; 1X NIESZCZELNOŚĆ N2O; 1x BRAK OZNAKOWANIA O2"}, {"nr": "POTOCZNIE KOMPUTEROWY", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "N₂O", "ilosc": "1"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AGSS", "ilosc": "1"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "1x NIESPRAWNE AGSS - BRAK ODCIĄGU"}, {"nr": "SALA PRZEDOPERACYJNA", "nazwa": "SALA PRZEDOPERACYJNA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "4.0"}, {"gaz": "VAC", "ilosc": "4.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSMED RZESZÓW", "wynik": "DO NAPRAWY", "uwagi": "4x BRAK OZNACZENIA; 2x NIESZCZELNOŚĆ O2"}, {"nr": "ODDZIAŁ CHORÓB WEWNĘTRZNYCH A 1p. W BUDYNKU C", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [], "producent": "", "wynik": "", "uwagi": ""}, {"nr": "C110", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C111", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C114", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C115", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C116", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C117", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C103", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C105", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "C106", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "KORYTARZ", "nazwa": "KORYTARZ", "miejsce": "KORYTARZ", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "PODSUMOWANIE", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [{"gaz": "N₂O", "ilosc": "2"}, {"gaz": "AGSS", "ilosc": "3"}], "producent": "", "wynik": "", "uwagi": ""}, {"nr": "ŁĄCZNIE", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [], "producent": "", "wynik": "", "uwagi": ""}, {"nr": "Zalecamy z racji nieszczelności wymianę wszystkich uszczelnień - elastycznych połączeń w tym uszczelniania miedzy częścią A i B punktów poborów gazów medycznych – zgodnie z normą m.in. PN-EN ISO 7396-1: 2010 i instrukcją wyrobu", "nazwa": "", "miejsce": "", "budynek": "A", "oddzial": "ODDZIAŁ OKULISTYCZNY + BLOK OPERACYJNY 3p. BUDYNEK A", "gazy": [], "producent": "", "wynik": "", "uwagi": ""}]}, "D": {"ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D": [{"nr": "D328", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "10.0"}, {"gaz": "VAC", "ilosc": "10.0"}, {"gaz": "AIR", "ilosc": "5"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "2x NIESZCZELNOŚĆ VAC"}, {"nr": "D317", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D316", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "6.0"}, {"gaz": "VAC", "ilosc": "6.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D314", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "6.0"}, {"gaz": "VAC", "ilosc": "6.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D313", "nazwa": "SALA CHORYCH", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "6.0"}, {"gaz": "VAC", "ilosc": "6.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D334", "nazwa": "PORADNIA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D333", "nazwa": "PRACOWNIA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D315", "nazwa": "PRACOWNIA POLIOMOGRAFICZNA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "(+POM) D318", "nazwa": "", "miejsce": "SCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D329", "nazwa": "SALA OPATRUNKOWA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ OTOLARYNGOLOGICZNY 3p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}], "producent": "GREGERSEN", "wynik": "POZYTYWNY", "uwagi": "BRAK"}], "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D": [{"nr": "D130", "nazwa": "SALA", "miejsce": "PANEL ŚCIENNY", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "", "uwagi": ""}, {"nr": "D131/D132", "nazwa": "A-8/2172/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ AIR; 1x USZKODZONY WTYK AIR"}, {"nr": "D131/D132", "nazwa": "A-8/2174/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x USZKODZONY WTYK AIR"}, {"nr": "D131/D132", "nazwa": "A-8/2170/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x USZKODZONY WTYK AIR"}, {"nr": "D131/D132", "nazwa": "A-8/2171/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ AIR; 1x USZKODZONY WTYK AIR"}, {"nr": "D131/D132", "nazwa": "A-8/2169/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D131/D132", "nazwa": "A-8/2168/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ AIR;"}, {"nr": "D131/D132", "nazwa": "A-8/2175/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D131/D132", "nazwa": "A-8/2173/2012", "miejsce": "KOLUMNA OIOM", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "IZOLATKA", "nazwa": "A-8/2176/2012", "miejsce": "IZOLATKA", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "PRESBLOK (PION ŚRUBA)", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ AIR;"}, {"nr": "KLINIKA CHIRURGII ONKOLOGICZNEJ 0p.", "nazwa": "", "miejsce": "", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [], "producent": "", "wynik": "", "uwagi": ""}, {"nr": "E016", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E017", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E018", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E019", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E020", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E021", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E022", "nazwa": "SALA", "miejsce": "PANEL", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "2"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "E008", "nazwa": "SALA", "miejsce": "ŚCIANA", "budynek": "D", "oddzial": "ODDZIAŁ INTENSYWNEJ TERAPII I ANESTEZJOLOGII 1p. BUDYNEK D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "INSTAL TM", "wynik": "POZYTYWNY", "uwagi": "BRAK"}]}, "B": {"PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D": [{"nr": "D009", "nazwa": "GASTROSKOPIA", "miejsce": "ŚCIANA", "budynek": "B", "oddzial": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "2.0"}, {"gaz": "VAC", "ilosc": "3.0"}, {"gaz": "AIR", "ilosc": "4"}], "producent": "AWAMED", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D007", "nazwa": "KOLONOSKOPIA", "miejsce": "ŚCIANA", "budynek": "B", "oddzial": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "2.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "AWAMED", "wynik": "POZYTYWNY", "uwagi": "BRAK"}, {"nr": "D011", "nazwa": "MAGAZYNEK", "miejsce": "ŚCIANA", "budynek": "B", "oddzial": "PRACOWNIA ENDOSKOPII 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "AWAMED", "wynik": "POZYTYWNY", "uwagi": "BRAK"}], "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D": [{"nr": "B008", "nazwa": "RTG", "miejsce": "", "budynek": "B", "oddzial": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "4"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ O2; 1x BRAK OZNACZENIA O2"}, {"nr": "B002", "nazwa": "RTG", "miejsce": "", "budynek": "B", "oddzial": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "1.0"}, {"gaz": "VAC", "ilosc": "1.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x BRAK OZNACZENIA O2"}, {"nr": "D015", "nazwa": "TK", "miejsce": "", "budynek": "B", "oddzial": "ZAKŁAD DIAGNOSTYKI OBRAZOWEJ 0p. BUDYNEK B i D", "gazy": [{"gaz": "O₂", "ilosc": "3.0"}, {"gaz": "VAC", "ilosc": "3.0"}, {"gaz": "AIR", "ilosc": "1"}], "producent": "GREGERSEN", "wynik": "DO NAPRAWY", "uwagi": "1x NIESZCZELNOŚĆ O2; 1x BRAK OZNACZENIA O2"}]}};
-const DOZORCY = ["Jan Kowalski","Piotr Nowak","Marek Zieliński","Anna Wójcik"];
-const state = { view: 'start', role: 'MASTER', menu: 'dashboard', query: '', gas: 'O₂' };
-const app = document.getElementById('app');
-
-function ekg() {
-  return `<div class="ekg"><svg viewBox="0 0 1600 260" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 150 H180 L250 150 L295 100 L350 210 L420 60 L500 150 H760 L820 150 L860 120 L900 170 L940 150 H1180 L1240 150 L1290 90 L1360 210 L1440 150 H1600"
-      fill="none" stroke="#0ea5e9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-      <animateTransform attributeName="transform" type="translate" from="0 0" to="-220 0" dur="18s" repeatCount="indefinite"/>
-    </path></svg></div>`;
-}
-function logo() {
-  return `<div class="logo">
-    <div class="logoMark"><svg viewBox="0 0 56 56" width="38" height="38"><path d="M4 30 H14 L19 30 L24 20 L29 38 L35 24 L40 30 H52" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-    <div><div class="logoWord1">L’ARIESS</div><div class="logoWord2">Medical</div></div>
-  </div>`;
-}
-function go(v) { state.view = v; render(); }
-function setGas(g) { state.gas = g; render(); }
-function setMenu(m) { state.menu = m; render(); }
-function setQuery(v) { state.query = v; render(); }
-function login() {
-  const u = document.getElementById('loginInput').value || 'master';
-  state.role = u.toUpperCase();
-  state.view = 'panel';
-  render();
-}
-
-function startView() {
-  return `${ekg()}<div class="page"><div class="wrap hero">
-    <div>
-      ${logo()}
-      <div class="title">System dozoru, eksploatacji i serwisowania gazów medycznych</div>
-      <div class="sub">Szpital Czerniakowski • L’Ariess Medical SGM • web z realnymi danymi z Exceli: skrzynki, punkty poboru, budynki, oddziały.</div>
+  <div id="loginScreen" class="min-h-screen flex items-center justify-center p-6">
+    <div class="glass max-w-md w-full p-8">
+      <img src="/logo.png" class="h-16 object-contain mb-6" alt="logo">
+      <h1 class="text-2xl font-black text-slate-800">L'ariess Medical Online</h1>
+      <p class="text-sm text-slate-500 mt-2 mb-6">Wersja online z pełną synchronizacją czasu rzeczywistego.</p>
+      <input id="loginName" class="input" placeholder="Wpisz imię i nazwisko, np. Patryk Dejek" />
+      <button id="loginBtn" class="btn w-full mt-4 bg-blue-700 text-white">Zaloguj</button>
+      <p class="text-xs text-slate-400 mt-4">Dostępni użytkownicy demo: Patryk Dejek, Andrzej Czerwiec, Piotr Rama, Janusz Kamiński.</p>
     </div>
-    <div class="stack">
-      <div class="card panelCard">
-        <div class="panelTitle">Dziennik dozoru</div>
-        <div class="panelSub">Wejście bez logowania do formularzy tlenowni, sprężarkowni i próżni.</div>
-        <button class="btn btnPrimary" onclick="go('dozor')">Otwórz dziennik dozoru</button>
-      </div>
-      <div class="card panelCard">
-        <div class="panelTitle">Logowanie do panelu</div>
-        <div class="panelSub">Dashboard, skrzynki, punkty poboru, wyszukiwarka i DTR.</div>
-        <button class="btn btnDark" onclick="go('login')">Przejdź do logowania</button>
-      </div>
-    </div>
-  </div></div>`;
-}
+  </div>
 
-function loginView() {
-  return `${ekg()}<div class="page"><div class="wrap" style="min-height:100vh;display:grid;align-items:center">
-    <div class="grid2" style="align-items:center">
-      <div>
-        ${logo()}
-        <div class="title" style="font-size:46px">Logowanie do panelu systemowego</div>
-        <div class="sub">Demo logowania do obejrzenia przepływu pracy. Login: master / admin / pracownik. Hasło: demo.</div>
-      </div>
-      <div class="card panelCard">
-        <div class="sectionTitle">Panel logowania</div>
-        <div class="stack">
-          <div><div class="small" style="margin-bottom:8px">Login</div><input id="loginInput" class="input" value="master"></div>
-          <div><div class="small" style="margin-bottom:8px">Hasło</div><input id="passInput" type="password" class="input" value="demo"></div>
-          <div class="row"><button class="btn btnGhost" onclick="go('start')">Wróć</button><button class="btn btnPrimary" onclick="login()">Zaloguj</button></div>
+  <div id="app" class="hidden">
+    <header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-slate-200">
+      <div class="max-w-7xl mx-auto p-4 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <img src="/logo.png" class="h-10 object-contain" alt="logo">
+          <div>
+            <div class="text-sm uppercase tracking-[.2em] text-slate-400 font-black">SGM / CMMS ONLINE</div>
+            <div class="font-black text-slate-800">Szpital Czerniakowski</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs uppercase tracking-[.2em] text-slate-400 font-black">Zalogowany</div>
+          <div id="currentUser" class="font-black text-slate-800"></div>
         </div>
       </div>
-    </div></div></div>`;
-}
+    </header>
 
-function dozorView() {
-  return `${ekg()}<div class="page"><div class="wrap">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px">${logo()}<button class="btn btnGhost" style="width:auto" onclick="go('start')">Wróć</button></div>
-    <div class="grid2">
-      <div class="card panelCard">
-        <div class="sectionTitle">Wybór instalacji</div>
-        <div class="stack">
-          ${['O₂','AIR','VAC'].map(g => `<button class="btn ${state.gas===g?'btnPrimary':'btnGhost'}" onclick="setGas('${g}')">${g==='O₂'?'Tlen medyczny O₂':g==='AIR'?'Sprężone powietrze AIR':'Próżnia VAC'}</button>`).join('')}
+    <main class="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
+      <section class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div class="glass p-6 lg:col-span-2">
+          <div class="flex items-center justify-between mb-4"><h2 class="font-black text-lg">Telemetria Live</h2><span class="text-xs font-black uppercase text-emerald-600">Socket Sync</span></div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="rounded-2xl bg-blue-50 p-4"><div class="text-xs uppercase font-black text-blue-600">Tlen O2</div><div id="telemetryO2" class="text-3xl font-black mt-2"></div></div>
+            <div class="rounded-2xl bg-violet-50 p-4"><div class="text-xs uppercase font-black text-violet-600">Podtlenek N2O</div><div id="telemetryN2O" class="text-3xl font-black mt-2"></div></div>
+            <div class="rounded-2xl bg-emerald-50 p-4"><div class="text-xs uppercase font-black text-emerald-600">AIR</div><div id="telemetryAIR" class="text-3xl font-black mt-2"></div></div>
+            <div class="rounded-2xl bg-amber-50 p-4"><div class="text-xs uppercase font-black text-amber-600">VAC</div><div id="telemetryVAC" class="text-3xl font-black mt-2"></div></div>
+          </div>
+          <div class="grid md:grid-cols-4 gap-3 mt-4">
+            <button class="btn bg-blue-700 text-white" onclick="saveTelemetry('O2')">Zapisz O2</button>
+            <button class="btn bg-violet-700 text-white" onclick="saveTelemetry('N2O')">Zapisz N2O</button>
+            <button class="btn bg-emerald-700 text-white" onclick="saveTelemetry('AIR')">Zapisz AIR</button>
+            <button class="btn bg-amber-500 text-white" onclick="saveTelemetry('VAC')">Zapisz VAC</button>
+          </div>
         </div>
-      </div>
-      <div class="card panelCard">
-        <div class="sectionTitle">Dziennik dozoru — ${state.gas}</div>
-        <div class="formGrid" style="margin-top:18px">
-          ${['Ciśnienie robocze','Stan zaworów','Alarmy','Uwagi techniczne'].map(label => `<div><div class="small" style="margin-bottom:8px">${label}</div><input class="input" placeholder="Wpisz wartość"></div>`).join('')}
+
+        <div class="glass p-6">
+          <h2 class="font-black text-lg mb-4">Obecność zespołu</h2>
+          <div id="presenceList" class="space-y-3"></div>
         </div>
-        <div style="margin-top:16px"><div class="small" style="margin-bottom:8px">Wykonał dozór</div><select class="input">${DOZORCY.map(d=>`<option>${d}</option>`).join('')}</select></div>
-        <div class="row" style="margin-top:16px"><button class="btn btnPrimary" onclick="alert('Wpis zapisany (demo).')">Zapisz wpis</button><button class="btn btnGhost" onclick="alert('Eksport PDF (demo).')">Eksportuj PDF</button></div>
-      </div>
-    </div></div></div>`;
-}
 
-function table(title, rows, cols) {
-  return `<div class="card"><div class="toolbar"><div class="sectionTitle" style="font-size:22px;margin:0">${title}</div></div><div class="tableWrap"><table><thead><tr>${cols.map(c=>`<th>${c[1]}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${r[c[0]] || ''}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
-}
-
-function dashboardView(filteredBoxes, filteredPoints) {
-  const byBuilding = {};
-  filteredPoints.forEach(p => byBuilding[p.budynek] = (byBuilding[p.budynek] || 0) + 1);
-  const buildingTags = Object.entries(byBuilding).map(([b,n]) => `<span class="tag">Budynek ${b}: ${n} punktów</span>`).join('');
-  return `
-    <div class="grid4">
-      <div class="card kpi"><div class="small">Skrzynki</div><div class="kpiValue">${filteredBoxes.length}</div><div class="small">Z realnego Excela</div></div>
-      <div class="card kpi"><div class="small">Punkty poboru</div><div class="kpiValue">${filteredPoints.length}</div><div class="small">Z realnego Excela</div></div>
-      <div class="card kpi"><div class="small">Budynki</div><div class="kpiValue">${Object.keys(TREE).length}</div><div class="small">Nazwy jak w Excelu</div></div>
-      <div class="card kpi"><div class="small">Role</div><div class="kpiValue">3</div><div class="small">Master / Admin / Pracownik</div></div>
-    </div>
-    <div class="grid2" style="margin-top:16px">
-      <div class="card panelCard">
-        <div class="sectionTitle">Szybkie wejścia</div>
-        <div class="row" style="margin-top:10px">
-          <button class="btn btnGhost" onclick="setMenu('skrzynki')">Skrzynki</button>
-          <button class="btn btnGhost" onclick="setMenu('punkty')">Punkty poboru</button>
-          <button class="btn btnGhost" onclick="setMenu('drzewo')">Drzewo oddziałów</button>
+        <div class="glass p-6">
+          <h2 class="font-black text-lg mb-4">Szybkie działania</h2>
+          <div class="space-y-3">
+            <button class="btn w-full bg-slate-800 text-white" onclick="openTaskForm()">Nowe zadanie</button>
+            <button class="btn w-full bg-red-600 text-white" onclick="openOutletForm()">Historia gniazda</button>
+            <button class="btn w-full bg-amber-500 text-white" onclick="openAuditForm()">Nowy audyt</button>
+          </div>
         </div>
-        <div style="margin-top:16px">${buildingTags}</div>
-      </div>
-      <div class="card panelCard">
-        <div class="sectionTitle">Ostatnie wpisy dozoru</div>
-        <div class="stack" style="margin-top:14px">
-          ${[
-            ['2026-04-16 08:15','O₂','Jan Kowalski'],
-            ['2026-04-16 07:52','AIR','Piotr Nowak'],
-            ['2026-04-15 21:10','VAC','Marek Zieliński']
-          ].map(d=>`<div style="padding:14px 16px;border:1px solid #e5edf5;border-radius:18px"><b>${d[1]}</b><div class="small" style="margin-top:6px">${d[0]} • ${d[2]}</div></div>`).join('')}
+      </section>
+
+      <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div class="glass p-6 xl:col-span-2">
+          <div class="flex items-center justify-between mb-4"><h2 class="font-black text-lg">Zadania zsynchronizowane</h2><span id="taskCount" class="text-xs font-black uppercase text-slate-500"></span></div>
+          <div id="tasksList" class="space-y-3"></div>
         </div>
-      </div>
-    </div>`;
-}
 
-function treeView() {
-  let html = `<div class="tree">`;
-  Object.keys(TREE).sort().forEach(building => {
-    html += `<details open><summary>Budynek ${building}</summary><div class="stack" style="margin-top:12px">`;
-    Object.keys(TREE[building]).forEach(unit => {
-      html += `<details><summary>${unit}</summary><div class="small" style="margin-top:10px">${TREE[building][unit].length} pomieszczeń / lokalizacji</div><div style="margin-top:10px">`;
-      TREE[building][unit].forEach(p => {
-        const gases = p.gazy.map(g=>`${g.gaz} (${g.ilosc})`).join(' • ');
-        html += `<div style="padding:10px 12px;border:1px solid var(--line);border-radius:14px;margin-bottom:8px"><b>${p.nr}</b> — ${p.nazwa}<div class="small">${gases || 'Brak gazów'}</div></div>`;
-      });
-      html += `</div></details>`;
-    });
-    html += `</div></details>`;
-  });
-  html += `</div>`;
-  return html;
-}
+        <div class="glass p-6">
+          <h2 class="font-black text-lg mb-4">Czat zespołu</h2>
+          <div id="chatList" class="space-y-3 h-80 overflow-y-auto pr-2"></div>
+          <div class="flex gap-2 mt-4">
+            <input id="chatInput" class="input" placeholder="Napisz wiadomość..." />
+            <button class="btn bg-sky-600 text-white" onclick="sendChat()">Wyślij</button>
+          </div>
+        </div>
+      </section>
 
-function panelView() {
-  const menu = [
-    ['dashboard','Dashboard'],
-    ['drzewo','Budynki i oddziały'],
-    ['skrzynki','Skrzynki odcinające'],
-    ['punkty','Punkty poboru'],
-    ['dtr','Dokumentacja DTR'],
-    ['raporty','Raporty PDF']
-  ];
-  const q = state.query.toLowerCase();
-  const filteredBoxes = BOXES.filter(x => JSON.stringify(x).toLowerCase().includes(q));
-  const filteredPoints = POINTS.filter(x => JSON.stringify(x).toLowerCase().includes(q));
+      <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div class="glass p-6">
+          <h2 class="font-black text-lg mb-4">Skrzynki SGM</h2>
+          <div id="boxesList" class="space-y-3"></div>
+        </div>
+        <div class="glass p-6 xl:col-span-2">
+          <div class="flex items-center justify-between mb-4"><h2 class="font-black text-lg">Punkty poboru i historia</h2><span class="text-xs font-black uppercase text-slate-500">Realtime sync</span></div>
+          <div id="outletsList" class="space-y-3"></div>
+        </div>
+      </section>
 
-  let title = 'Dashboard';
-  let content = dashboardView(filteredBoxes, filteredPoints);
-
-  if (state.menu === 'skrzynki') {
-    title = 'Skrzynki odcinające';
-    content = table('Lista skrzynek', filteredBoxes, [
-      ['nr','Numer'],['budynek','Budynek'],['poziom','Poziom'],['oddzial','Oddział'],['gazy','Gazy'],['wynik','Wynik']
-    ]);
-  }
-  if (state.menu === 'punkty') {
-    title = 'Punkty poboru';
-    const rows = filteredPoints.map(p => {
-      const gases = p.gazy.map(g => `${g.gaz} (${g.ilosc})`).join(' • ');
-      return {
-        nr: p.nr, budynek: p.budynek, oddzial: p.oddzial, nazwa: p.nazwa, miejsce: p.miejsce, gazy: gases, wynik: p.wynik
-      };
-    });
-    content = table('Lista punktów poboru', rows, [
-      ['nr','Numer'],['budynek','Budynek'],['oddzial','Oddział'],['nazwa','Nazwa'],['miejsce','Miejsce'],['gazy','Gazy'],['wynik','Wynik']
-    ]);
-  }
-  if (state.menu === 'drzewo') {
-    title = 'Budynki i oddziały';
-    content = treeView();
-  }
-  if (state.menu === 'dtr') {
-    title = 'Dokumentacja DTR';
-    content = `<div class="grid2">
-      <div class="card panelCard"><div class="sectionTitle">DTR tablica redukcyjna TRI/TC</div><div class="panelSub">Instrukcja techniczna urządzenia.</div></div>
-      <div class="card panelCard"><div class="sectionTitle">DTR bateria butlowa BP</div><div class="panelSub">Opis budowy i obsługi.</div></div>
-      <div class="card panelCard"><div class="sectionTitle">DTR łącznik butlowy</div><div class="panelSub">Instrukcja serwisowa i montażowa.</div></div>
-      <div class="card panelCard"><div class="sectionTitle">Protokoły serwisowe</div><div class="panelSub">Archiwum PDF i wpisy robocze.</div></div>
-    </div>`;
-  }
-  if (state.menu === 'raporty') {
-    title = 'Raporty PDF';
-    content = `<div class="card panelCard"><div class="sectionTitle">Eksporty i raporty</div><div class="row" style="margin-top:16px">
-      <button class="btn btnDark">Raport dziennika dozoru</button>
-      <button class="btn btnGhost">Raport skrzynki</button>
-      <button class="btn btnGhost">Raport punktu poboru</button>
-    </div></div>`;
-  }
-
-  return `${ekg()}<div class="page navLayout">
-    <aside class="sidebar">
-      ${logo()}
-      <div style="margin-top:18px;padding:14px 16px;border-radius:18px;background:#f1f5f9" class="small"><b style="display:block;color:#0f172a;margin-bottom:6px">Zalogowano jako</b>${state.role}</div>
-      <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
-        ${menu.map(m=>`<button class="navBtn ${state.menu===m[0]?'active':''}" onclick="setMenu('${m[0]}')"><span>${m[1]}</span><span>›</span></button>`).join('')}
-      </div>
-      <button class="btn btnGhost" style="margin-top:20px" onclick="go('start')">Wyloguj</button>
-    </aside>
-    <main>
-      <div class="topbar">
-        <div><div style="font-size:28px;font-weight:700">${title}</div><div class="small">Szpital Czerniakowski • L’Ariess Medical SGM</div></div>
-        <input class="search" placeholder="Szukaj: skrzynka, punkt, sala, oddział, gaz..." value="${state.query}" oninput="setQuery(this.value)">
-      </div>
-      <div class="content">${content}</div>
+      <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div class="glass p-6">
+          <h2 class="font-black text-lg mb-4">Dzienniki dozoru</h2>
+          <div id="logsList" class="space-y-3"></div>
+        </div>
+        <div class="glass p-6">
+          <h2 class="font-black text-lg mb-4">Audyty</h2>
+          <div id="auditsList" class="space-y-3"></div>
+        </div>
+        <div class="glass p-6">
+          <div class="flex items-center justify-between mb-4"><h2 class="font-black text-lg">Dokumenty DTR</h2></div>
+          <form id="uploadForm" class="space-y-3">
+            <input name="name" class="input" placeholder="Nazwa dokumentu" />
+            <input name="linkedTo" class="input" placeholder="Powiąż z obiektem, np. C107" />
+            <input type="file" name="file" class="input" />
+            <button class="btn w-full bg-slate-800 text-white" type="submit">Wyślij do chmury</button>
+          </form>
+          <div id="documentsList" class="space-y-3 mt-4"></div>
+        </div>
+      </section>
     </main>
-  </div>`;
-}
+  </div>
 
-function render() {
-  app.innerHTML = state.view === 'start' ? startView() : state.view === 'login' ? loginView() : state.view === 'dozor' ? dozorView() : panelView();
-}
-render();
-</script>
+  <script src="/app.js"></script>
 </body>
 </html>
